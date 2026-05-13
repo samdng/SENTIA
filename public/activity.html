@@ -41,6 +41,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
+  <script src="db.js"></script>
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -372,15 +374,12 @@
       btnSkip.classList.add('hidden');
       btnCheck.classList.add('hidden');
 
-      // Unlock next level logic
-      let currentUnlocked = parseInt(localStorage.getItem('sentia_unlocked_level') || '1', 10);
-      if (currentNodeId >= currentUnlocked && currentNodeId < 4) {
-        localStorage.setItem('sentia_unlocked_level', currentNodeId + 1);
-      }
+      // Update Database
+      DB.completeNode(currentNodeId);
     }
 
     function returnToDashboard() {
-      window.location.href = 'dashboard.html';
+      window.location.href = 'dashboard.html?justCompleted=' + currentNodeId;
     }
 
     // Initialize on load

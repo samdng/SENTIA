@@ -65,6 +65,7 @@
       font-family: 'Inter', sans-serif;
     }
   </style>
+  <script src="db.js"></script>
 </head>
 <body class="bg-slate-50 min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
 
@@ -91,8 +92,8 @@
         <p class="text-slate-500">Sign in to continue to SENTIA.</p>
       </div>
 
-      <!-- Form (Mockup: Redirects to dashboard.html on submit) -->
-      <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';" class="space-y-6">
+      <!-- Form -->
+      <form id="login-form" class="space-y-6">
         
         <div>
           <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
@@ -135,5 +136,19 @@
     </div>
   </div>
 
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      const success = DB.login(email, password);
+      if (success) {
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('Invalid credentials. Please use test@example.com / password');
+      }
+    });
+  </script>
 </body>
 </html>
