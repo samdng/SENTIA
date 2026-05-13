@@ -184,8 +184,7 @@
         <!-- Active Node Ring -->
         <div class="absolute inset-0 border-[6px] border-primary-200 rounded-full scale-[1.25] rotate-45 border-t-primary-500 transition-all"></div>
         
-        <!-- Node Button -->
-        <a href="activity.html" class="relative z-10 w-20 h-20 bg-primary-500 rounded-full shadow-[0_6px_0_#2563eb] hover:shadow-[0_2px_0_#2563eb] hover:translate-y-1 transition-all flex items-center justify-center cursor-pointer block">
+        <a href="activity.html?node=1" id="node-btn-1" class="relative z-10 w-20 h-20 bg-primary-500 rounded-full shadow-[0_6px_0_#2563eb] hover:shadow-[0_2px_0_#2563eb] hover:translate-y-1 transition-all flex items-center justify-center cursor-pointer block">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white mx-auto mt-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
@@ -200,47 +199,47 @@
 
       <!-- Node 2: Recognizing Emotions (Locked) -->
       <div class="relative mb-24" style="transform: translateX(60px);">
-        <button class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed">
+        <a id="node-btn-2" class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed block transition-all mx-auto">
           <!-- Lock Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+          <svg id="node-icon-2" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 mt-4 mx-auto" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
           </svg>
-        </button>
+        </a>
 
         <!-- Node Info -->
         <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
-          <h3 class="font-bold text-slate-400 text-lg">Node 2: Emotions</h3>
-          <p class="text-sm text-slate-400 font-medium opacity-70">Goal: Identify emotions</p>
+          <h3 id="node-title-2" class="font-bold text-slate-400 text-lg">Node 2: Emotions</h3>
+          <p id="node-desc-2" class="text-sm text-slate-400 font-medium opacity-70">Goal: Identify emotions</p>
         </div>
       </div>
 
       <!-- Node 3: Stress Management (Locked) -->
       <div class="relative mb-24" style="transform: translateX(-40px);">
-        <button class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+        <a id="node-btn-3" class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed block transition-all mx-auto">
+          <svg id="node-icon-3" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 mt-4 mx-auto" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
           </svg>
-        </button>
+        </a>
 
         <!-- Node Info -->
         <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
-          <h3 class="font-bold text-slate-400 text-lg">Node 3: Stress</h3>
-          <p class="text-sm text-slate-400 font-medium opacity-70">Goal: Reduce tension</p>
+          <h3 id="node-title-3" class="font-bold text-slate-400 text-lg">Node 3: Stress</h3>
+          <p id="node-desc-3" class="text-sm text-slate-400 font-medium opacity-70">Goal: Reduce tension</p>
         </div>
       </div>
 
       <!-- Node 4: Positive Thoughts (Locked) -->
       <div class="relative mb-16" style="transform: translateX(40px);">
-        <button class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+        <a id="node-btn-4" class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed block transition-all mx-auto">
+          <svg id="node-icon-4" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 mt-4 mx-auto" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
           </svg>
-        </button>
+        </a>
 
         <!-- Node Info -->
         <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
-          <h3 class="font-bold text-slate-400 text-lg">Node 4: Positivity</h3>
-          <p class="text-sm text-slate-400 font-medium opacity-70">Goal: Change mindset</p>
+          <h3 id="node-title-4" class="font-bold text-slate-400 text-lg">Node 4: Positivity</h3>
+          <p id="node-desc-4" class="text-sm text-slate-400 font-medium opacity-70">Goal: Change mindset</p>
         </div>
       </div>
 
@@ -304,5 +303,35 @@
 
   </aside>
 
+  <script>
+    // Handle dynamic unlocking of nodes based on progress saved in localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const unlockedLevel = parseInt(localStorage.getItem('sentia_unlocked_level') || '1', 10);
+      
+      const starIconSvg = `<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />`;
+
+      for (let i = 2; i <= 4; i++) {
+        const btn = document.getElementById(`node-btn-${i}`);
+        const icon = document.getElementById(`node-icon-${i}`);
+        const title = document.getElementById(`node-title-${i}`);
+        const desc = document.getElementById(`node-desc-${i}`);
+
+        if (i <= unlockedLevel) {
+          // Unlock this node!
+          btn.href = `activity.html?node=${i}`;
+          btn.className = "relative z-10 w-20 h-20 bg-primary-500 rounded-full shadow-[0_6px_0_#2563eb] hover:shadow-[0_2px_0_#2563eb] hover:translate-y-1 transition-all flex items-center justify-center cursor-pointer block mx-auto";
+          
+          icon.innerHTML = starIconSvg;
+          icon.className = "h-10 w-10 text-white mx-auto mt-5";
+          
+          title.classList.remove('text-slate-400');
+          title.classList.add('text-slate-800');
+          
+          desc.classList.remove('text-slate-400', 'opacity-70');
+          desc.classList.add('text-slate-500');
+        }
+      }
+    });
+  </script>
 </body>
 </html>

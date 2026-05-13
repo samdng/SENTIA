@@ -53,6 +53,12 @@
       70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
       100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
     }
+    .emoji-btn {
+      transition: all 0.2s;
+    }
+    .emoji-btn:hover {
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body class="bg-white text-slate-800 min-h-screen flex flex-col relative overflow-hidden">
@@ -68,9 +74,7 @@
     
     <!-- Progress Bar -->
     <div class="flex-1 h-4 bg-slate-100 rounded-full overflow-hidden relative shadow-inner">
-      <!-- The progress fill (e.g. 20%) -->
-      <div class="absolute top-0 left-0 h-full bg-primary-500 rounded-full transition-all duration-500 w-1/5 relative overflow-hidden">
-        <!-- Light reflection on the bar -->
+      <div id="progress-fill" class="absolute top-0 left-0 h-full bg-primary-500 rounded-full transition-all duration-500 w-0 relative overflow-hidden">
         <div class="absolute top-1 left-2 right-2 h-1 bg-white/30 rounded-full"></div>
       </div>
     </div>
@@ -81,56 +85,20 @@
     
     <!-- Level Name & Objective -->
     <div class="mb-10">
-      <h2 class="text-primary-600 font-bold text-sm tracking-widest uppercase mb-3 flex items-center gap-2">
+      <h2 id="node-name" class="text-primary-600 font-bold text-sm tracking-widest uppercase mb-3 flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
         </svg>
-        Node 1 — First Steps
+        Loading...
       </h2>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800">Establish a daily habit</h1>
+      <h1 id="node-goal" class="text-3xl md:text-4xl font-extrabold text-slate-800">Loading...</h1>
     </div>
 
-    <!-- The Activity Task -->
-    <div class="flex-1 flex flex-col items-center justify-center">
-      
-      <div class="text-center mb-12">
-        <h3 class="text-2xl font-bold text-slate-700 mb-2">1-Minute Guided Breathing</h3>
-        <p class="text-slate-500">Take a moment to center yourself before we start.</p>
-      </div>
-
-      <!-- Breathing Animation Mockup -->
-      <div class="relative w-48 h-48 flex items-center justify-center mb-12">
-        <div class="absolute inset-0 bg-primary-100 rounded-full pulse-ring"></div>
-        <div class="absolute inset-4 bg-primary-200 rounded-full opacity-60"></div>
-        <div class="relative z-10 w-24 h-24 bg-primary-500 rounded-full shadow-lg shadow-primary-500/40 flex items-center justify-center text-white cursor-pointer hover:scale-105 transition-transform">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-          </svg>
-        </div>
-      </div>
-
-      <!-- Activity Checklist Mockup (Optional to show the list of activities) -->
-      <div class="w-full max-w-md bg-slate-50 rounded-2xl border border-slate-200 p-6 shadow-sm">
-        <p class="text-sm font-bold text-slate-500 uppercase tracking-wide mb-4">Activities in this node</p>
-        <ul class="space-y-3">
-          <li class="flex items-center gap-3 text-slate-800 font-semibold">
-            <div class="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-white">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-            </div>
-            1-minute guided breathing
-          </li>
-          <li class="flex items-center gap-3 text-slate-400 font-medium">
-            <div class="w-6 h-6 rounded-full border-2 border-slate-300"></div>
-            Choose how you're feeling today
-          </li>
-          <li class="flex items-center gap-3 text-slate-400 font-medium">
-            <div class="w-6 h-6 rounded-full border-2 border-slate-300"></div>
-            Write down one good thing
-          </li>
-        </ul>
-      </div>
-
+    <!-- The Activity Task Container -->
+    <div id="activity-container" class="flex-1 flex flex-col items-center justify-center min-h-[300px]">
+       <!-- Dynamic content injected here -->
     </div>
+
   </main>
 
   <!-- Bottom Bar: Actions -->
@@ -138,18 +106,286 @@
     <div class="max-w-4xl mx-auto flex items-center justify-between">
       
       <!-- Skip Button -->
-      <button class="px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold text-slate-400 uppercase tracking-wide hover:bg-slate-100 hover:text-slate-600 transition-colors">
+      <button id="btn-skip" class="px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold text-slate-400 uppercase tracking-wide hover:bg-slate-100 hover:text-slate-600 transition-colors">
         Skip
       </button>
 
       <!-- Check Button -->
-      <!-- Added onclick to simulate completing the activity and going back to dashboard -->
-      <button onclick="window.location.href='dashboard.html'" class="px-8 md:px-12 py-3 md:py-4 bg-primary-500 text-white font-bold rounded-xl uppercase tracking-widest shadow-[0_4px_0_#2563eb] hover:translate-y-[2px] hover:shadow-[0_2px_0_#2563eb] transition-all text-lg">
+      <button id="btn-check" class="px-8 md:px-12 py-3 md:py-4 bg-primary-500 text-white font-bold rounded-xl uppercase tracking-widest shadow-[0_4px_0_#2563eb] hover:translate-y-[2px] hover:shadow-[0_2px_0_#2563eb] transition-all text-lg hidden">
         Check
       </button>
 
     </div>
   </footer>
 
+  <!-- App Engine Script -->
+  <script>
+    const activitiesData = {
+      1: {
+        title: "Node 1 — First Steps",
+        goal: "Establish a daily habit",
+        activities: [
+          { type: 'countdown', duration: 60, title: '1-Minute Guided Breathing', desc: 'Take a moment to center yourself before we start.' },
+          { type: 'emoji', title: 'Choose how you’re feeling today', desc: 'Select an emoji that represents your mood.' },
+          { type: 'check', title: 'Write down one good thing about your day', desc: 'Keep a positive mindset.' },
+          { type: 'check', title: 'Drink some water and log it', desc: 'Stay hydrated.' },
+          { type: 'countdown', duration: 120, title: 'Listen to a relaxing sound', desc: 'Find a quiet place for 2 minutes.' },
+          { type: 'check', title: 'Complete your first streak', desc: 'Consistency is key.' },
+          { type: 'check', title: 'Write down a small goal for tomorrow', desc: 'Plan ahead for success.' }
+        ]
+      },
+      2: {
+        title: "Node 2 — Emotions",
+        goal: "Identify emotions and thoughts",
+        activities: [
+          { type: 'check', title: 'Emotional journal: What did I feel today?', desc: 'Reflect on your daily emotions.' },
+          { type: 'check', title: 'Identify emotions on a list', desc: 'Can you name them all?' },
+          { type: 'check', title: 'Distinguish between stress, sadness, and tiredness', desc: 'They require different self-care.' },
+          { type: 'check', title: 'Record a happy moment from the day', desc: 'Focus on the positive.' },
+          { type: 'check', title: 'Describe something that worried you', desc: 'Acknowledge your concerns.' },
+          { type: 'check', title: 'Ongoing: Write down 1 emotion daily', desc: 'Make it a habit.' },
+          { type: 'countdown', duration: 60, title: '4-4-4 breathing exercise', desc: 'Inhale 4s, hold 4s, exhale 4s.' }
+        ]
+      },
+      3: {
+        title: "Node 3 — Stress Management",
+        goal: "Reduce mental and physical tension",
+        activities: [
+          { type: 'countdown', duration: 180, title: '3-minute deep breathing', desc: 'Relax and reset.' },
+          { type: 'check', title: 'Guided muscle relaxation', desc: 'Release physical tension.' },
+          { type: 'check', title: 'Quick stretching', desc: 'Get your blood flowing.' },
+          { type: 'check', title: 'Identify a stress trigger', desc: 'Knowledge is power.' },
+          { type: 'countdown', duration: 120, title: 'Listen to relaxing music', desc: 'Let your mind wander.' },
+          { type: 'countdown', duration: 600, title: '10-minute screen-free break', desc: 'Disconnect to reconnect.' },
+          { type: 'check', title: 'Ongoing: Track daily stress levels', desc: 'Monitor your progress.' }
+        ]
+      },
+      4: {
+        title: "Node 4 — Positive Thoughts",
+        goal: "Change a negative mindset",
+        activities: [
+          { type: 'check', title: 'Write down 3 things to be grateful for', desc: 'Appreciate the little things.' },
+          { type: 'check', title: 'Replace a negative thought', desc: 'Reframe it positively.' },
+          { type: 'check', title: 'Recall a personal achievement', desc: 'Be proud of yourself.' },
+          { type: 'check', title: 'Write something good about yourself', desc: 'Self-love is important.' },
+          { type: 'check', title: 'Daily positive quote', desc: 'Find inspiration.' },
+          { type: 'check', title: 'Ongoing: Gratitude journal', desc: 'Build a positive habit.' },
+          { type: 'check', title: 'Identify exaggerated thoughts', desc: 'Stay grounded in reality.' }
+        ]
+      }
+    };
+
+    // App State
+    let currentNodeId = 1;
+    let currentStep = 0;
+    let timerInterval = null;
+
+    // Elements
+    const titleEl = document.getElementById('node-name');
+    const goalEl = document.getElementById('node-goal');
+    const progressFill = document.getElementById('progress-fill');
+    const activityContainer = document.getElementById('activity-container');
+    const btnSkip = document.getElementById('btn-skip');
+    const btnCheck = document.getElementById('btn-check');
+
+    function init() {
+      // Get node from URL or default to 1
+      const urlParams = new URLSearchParams(window.location.search);
+      currentNodeId = parseInt(urlParams.get('node')) || 1;
+      
+      if (!activitiesData[currentNodeId]) {
+        currentNodeId = 1; // Fallback
+      }
+
+      titleEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg> ${activitiesData[currentNodeId].title}`;
+      goalEl.innerText = activitiesData[currentNodeId].goal;
+
+      btnSkip.addEventListener('click', nextStep);
+      btnCheck.addEventListener('click', nextStep);
+
+      renderStep();
+    }
+
+    function updateProgress() {
+      const totalSteps = activitiesData[currentNodeId].activities.length;
+      // Calculate progress percentage
+      const percent = totalSteps === 0 ? 100 : (currentStep / totalSteps) * 100;
+      progressFill.style.width = `${percent}%`;
+    }
+
+    function renderStep() {
+      // Clear any ongoing timers
+      if (timerInterval) clearInterval(timerInterval);
+      
+      updateProgress();
+
+      const activities = activitiesData[currentNodeId].activities;
+      
+      if (currentStep >= activities.length) {
+        completeNode();
+        return;
+      }
+
+      const activity = activities[currentStep];
+      
+      // Default button state
+      btnCheck.classList.add('hidden');
+      btnSkip.classList.remove('hidden');
+
+      // Common Header
+      let html = `
+        <div class="text-center mb-12 w-full animate-[fadeIn_0.5s_ease-out]">
+          <h3 class="text-2xl font-bold text-slate-700 mb-2">${activity.title}</h3>
+          <p class="text-slate-500">${activity.desc}</p>
+        </div>
+      `;
+
+      if (activity.type === 'countdown') {
+        html += renderCountdownUI(activity);
+      } else if (activity.type === 'emoji') {
+        html += renderEmojiUI();
+      } else if (activity.type === 'check') {
+        html += renderCheckUI();
+        btnCheck.classList.remove('hidden');
+      }
+
+      activityContainer.innerHTML = html;
+
+      // Attach event listeners after rendering
+      if (activity.type === 'countdown') {
+        document.getElementById('start-timer-btn').addEventListener('click', () => startTimer(activity.duration));
+      } else if (activity.type === 'emoji') {
+        document.querySelectorAll('.emoji-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            // Give brief feedback before continuing
+            btn.classList.add('scale-125', 'opacity-50');
+            setTimeout(nextStep, 400);
+          });
+        });
+      }
+    }
+
+    function renderCountdownUI(activity) {
+      return `
+        <div id="timer-ui" class="relative w-48 h-48 flex items-center justify-center mb-12 animate-[slideUp_0.5s_ease-out]">
+          <div class="absolute inset-0 bg-primary-100 rounded-full pulse-ring"></div>
+          <div class="absolute inset-4 bg-primary-200 rounded-full opacity-60"></div>
+          <button id="start-timer-btn" class="relative z-10 w-24 h-24 bg-primary-500 rounded-full shadow-lg shadow-primary-500/40 flex items-center justify-center text-white cursor-pointer hover:scale-105 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      `;
+    }
+
+    function startTimer(duration) {
+      const timerUI = document.getElementById('timer-ui');
+      let timeLeft = duration;
+      
+      timerUI.innerHTML = `
+        <div class="absolute inset-0 border-8 border-primary-100 rounded-full"></div>
+        <div class="absolute inset-0 border-8 border-primary-500 rounded-full border-t-transparent animate-spin"></div>
+        <div class="relative z-10 text-4xl font-extrabold text-primary-600" id="countdown-text">
+          ${formatTime(timeLeft)}
+        </div>
+      `;
+
+      btnSkip.classList.add('hidden'); // Optional: hide skip while doing exercise
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('countdown-text').innerText = formatTime(timeLeft);
+        
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          nextStep();
+        }
+      }, 1000);
+    }
+
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function renderEmojiUI() {
+      const emojis = [
+        { icon: '😡', label: 'Angry' },
+        { icon: '😢', label: 'Sad' },
+        { icon: '😐', label: 'Normal' },
+        { icon: '😊', label: 'Happy' },
+        { icon: '🤩', label: 'Great' }
+      ];
+      
+      let html = `<div class="flex gap-4 md:gap-8 justify-center animate-[slideUp_0.5s_ease-out]">`;
+      emojis.forEach(e => {
+        html += `
+          <button class="emoji-btn flex flex-col items-center gap-2">
+            <div class="w-16 h-16 md:w-20 md:h-20 bg-slate-50 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-center text-4xl hover:bg-primary-50 hover:border-primary-200 transition-colors">
+              ${e.icon}
+            </div>
+            <span class="text-xs font-bold text-slate-400 uppercase">${e.label}</span>
+          </button>
+        `;
+      });
+      html += `</div>`;
+      return html;
+    }
+
+    function renderCheckUI() {
+      return `
+        <div class="w-full max-w-md bg-slate-50 rounded-2xl border border-slate-200 p-8 shadow-sm text-center animate-[slideUp_0.5s_ease-out]">
+           <div class="w-20 h-20 bg-primary-100 rounded-full mx-auto flex items-center justify-center mb-6">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+             </svg>
+           </div>
+           <p class="text-slate-600 font-medium">When you have completed this activity, press Check to continue.</p>
+        </div>
+      `;
+    }
+
+    function nextStep() {
+      currentStep++;
+      renderStep();
+    }
+
+    function completeNode() {
+      activityContainer.innerHTML = `
+        <div class="text-center animate-[fadeIn_1s_ease-out]">
+          <div class="w-32 h-32 bg-accent-100 rounded-full mx-auto flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(16,185,129,0.3)]">
+            <svg class="w-16 h-16 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 class="text-4xl font-extrabold text-slate-800 mb-4">Node Complete!</h2>
+          <p class="text-lg text-slate-500 mb-8">Great job finishing all activities for this node.</p>
+          <button onclick="returnToDashboard()" class="px-10 py-4 bg-accent-500 text-white font-bold rounded-xl uppercase tracking-widest shadow-[0_4px_0_#059669] hover:translate-y-[2px] hover:shadow-[0_2px_0_#059669] transition-all text-lg">
+            Continue
+          </button>
+        </div>
+      `;
+      btnSkip.classList.add('hidden');
+      btnCheck.classList.add('hidden');
+
+      // Unlock next level logic
+      let currentUnlocked = parseInt(localStorage.getItem('sentia_unlocked_level') || '1', 10);
+      if (currentNodeId >= currentUnlocked && currentNodeId < 4) {
+        localStorage.setItem('sentia_unlocked_level', currentNodeId + 1);
+      }
+    }
+
+    function returnToDashboard() {
+      window.location.href = 'dashboard.html';
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', init);
+
+  </script>
 </body>
 </html>
