@@ -92,7 +92,7 @@
       </div>
 
       <!-- Form (Mockup: Redirects to dashboard.html on submit) -->
-      <form action="dashboard.html" method="GET" class="space-y-6">
+      <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';" class="space-y-6">
         
         <div>
           <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email Address</label>

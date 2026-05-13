@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | SENTIA</title>
+  <title>Activity Path | SENTIA</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -18,11 +18,15 @@
               200: '#bfdbfe',
               300: '#93c5fd',
               400: '#60a5fa',
-              500: '#3b82f6',
+              500: '#3b82f6', // Brand color
               600: '#2563eb',
               700: '#1d4ed8',
               800: '#1e40af',
               900: '#1e3a8a',
+            },
+            accent: {
+              500: '#10b981', // Emerald
+              600: '#059669',
             }
           },
           fontFamily: {
@@ -35,40 +39,270 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <style>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .glassmorphism {
+        @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+      }
+    }
     body {
       font-family: 'Inter', sans-serif;
     }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Node animations */
+    .node-bounce {
+      animation: bounceCentered 2s infinite;
+    }
+    @keyframes bounceCentered {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -8px); }
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
   </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex overflow-hidden relative">
 
-  <!-- Simple Navbar -->
-  <nav class="bg-white border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <div class="flex-shrink-0 flex items-center">
-          <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-blue-400">SENTIA</span>
+  <!-- Background Decorations (Matching Index) -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+    <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-primary-200/50 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 0s;"></div>
+    <div class="absolute top-[20%] -right-[10%] w-[35%] h-[35%] rounded-full bg-accent-500/20 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute -bottom-[10%] left-[20%] w-[50%] h-[50%] rounded-full bg-primary-300/30 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+  </div>
+
+  <!-- LEFT SIDEBAR: Navigation -->
+  <aside class="w-64 border-r border-slate-200 bg-white/80 backdrop-blur-md hidden md:flex flex-col h-screen p-4 flex-shrink-0 relative z-20 shadow-sm">
+    
+    <!-- Logo -->
+    <div class="px-4 py-6 mb-4">
+      <h1 class="text-3xl font-extrabold tracking-tight">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">SENTIA</span>
+      </h1>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 space-y-2">
+      <!-- Activity (Active) -->
+      <a href="#" class="flex items-center gap-4 px-4 py-3 bg-primary-50 border border-primary-200 text-primary-700 rounded-xl font-bold transition-colors shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+        </svg>
+        Activity
+      </a>
+
+      <!-- Account -->
+      <a href="#" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-100 rounded-xl font-semibold transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+        </svg>
+        Account
+      </a>
+
+      <!-- Settings -->
+      <a href="#" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-100 rounded-xl font-semibold transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+        </svg>
+        Settings
+      </a>
+      
+      <!-- Logout -->
+      <a href="index.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-red-600 rounded-xl font-semibold transition-colors mt-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400 group-hover:text-red-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+        </svg>
+        Logout
+      </a>
+    </nav>
+  </aside>
+
+  <!-- CENTER: Activity Path -->
+  <main class="flex-1 overflow-y-auto relative h-screen">
+    
+    <!-- Unit Header -->
+    <div class="sticky top-0 z-30 bg-primary-600 p-4 mx-4 mt-6 rounded-2xl flex items-center justify-between shadow-lg shadow-primary-600/30">
+      <div>
+        <div class="text-primary-100 font-bold text-xs tracking-widest flex items-center gap-2 uppercase mb-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Phase 1
         </div>
-        <div class="flex items-center gap-4">
-          <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold">
-            U
-          </div>
-          <a href="index.html" class="text-sm text-slate-500 hover:text-slate-700">Logout</a>
+        <h2 class="text-white text-2xl font-bold">Foundations of Mindfulness</h2>
+      </div>
+      <button class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-2 backdrop-blur-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+        </svg>
+        Guide
+      </button>
+    </div>
+
+    <!-- The Path Container -->
+    <div class="relative max-w-lg mx-auto py-20 min-h-[1200px] flex flex-col items-center">
+      
+      <!-- SVG Background Path Line -->
+      <svg class="absolute top-10 bottom-10 w-full h-full -z-10" preserveAspectRatio="none">
+        <path d="M 256 50 C 256 100, 316 150, 316 200 C 316 250, 256 300, 256 350 C 256 400, 196 450, 196 500 C 196 550, 256 600, 256 650" 
+              stroke="#e2e8f0" stroke-width="15" fill="none" stroke-linecap="round" />
+      </svg>
+
+      <!-- Nodes -->
+      
+      <!-- Node 1: First Steps (Completed / Active) -->
+      <div class="relative mb-24" style="transform: translateX(0px);">
+        <!-- Tooltip -->
+        <div class="absolute -top-16 left-1/2 bg-white text-primary-600 font-bold px-4 py-2 rounded-xl text-sm tracking-wide shadow-xl shadow-primary-500/10 border border-slate-100 whitespace-nowrap z-20 node-bounce">
+          START
+          <!-- Tooltip Arrow -->
+          <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white"></div>
+        </div>
+        
+        <!-- Active Node Ring -->
+        <div class="absolute inset-0 border-[6px] border-primary-200 rounded-full scale-[1.25] rotate-45 border-t-primary-500 transition-all"></div>
+        
+        <!-- Node Button -->
+        <a href="activity.html" class="relative z-10 w-20 h-20 bg-primary-500 rounded-full shadow-[0_6px_0_#2563eb] hover:shadow-[0_2px_0_#2563eb] hover:translate-y-1 transition-all flex items-center justify-center cursor-pointer block">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white mx-auto mt-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        </a>
+
+        <!-- Node Info -->
+        <div class="absolute top-24 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
+          <h3 class="font-bold text-slate-800 text-lg">Node 1: First Steps</h3>
+          <p class="text-sm text-slate-500 font-medium">Goal: Establish a daily habit</p>
         </div>
       </div>
-    </div>
-  </nav>
 
-  <!-- Blank Content Area -->
-  <main class="flex-grow flex items-center justify-center p-4">
-    <div class="text-center">
-      <h2 class="text-2xl font-semibold text-slate-400 mb-2">Welcome to your Dashboard</h2>
-      <p class="text-slate-500">This page is intentionally left blank for the mockup presentation.</p>
+      <!-- Node 2: Recognizing Emotions (Locked) -->
+      <div class="relative mb-24" style="transform: translateX(60px);">
+        <button class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed">
+          <!-- Lock Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <!-- Node Info -->
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
+          <h3 class="font-bold text-slate-400 text-lg">Node 2: Emotions</h3>
+          <p class="text-sm text-slate-400 font-medium opacity-70">Goal: Identify emotions</p>
+        </div>
+      </div>
+
+      <!-- Node 3: Stress Management (Locked) -->
+      <div class="relative mb-24" style="transform: translateX(-40px);">
+        <button class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <!-- Node Info -->
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
+          <h3 class="font-bold text-slate-400 text-lg">Node 3: Stress</h3>
+          <p class="text-sm text-slate-400 font-medium opacity-70">Goal: Reduce tension</p>
+        </div>
+      </div>
+
+      <!-- Node 4: Positive Thoughts (Locked) -->
+      <div class="relative mb-16" style="transform: translateX(40px);">
+        <button class="w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <!-- Node Info -->
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
+          <h3 class="font-bold text-slate-400 text-lg">Node 4: Positivity</h3>
+          <p class="text-sm text-slate-400 font-medium opacity-70">Goal: Change mindset</p>
+        </div>
+      </div>
+
     </div>
+
   </main>
+
+  <!-- RIGHT SIDEBAR: Stats & Challenges -->
+  <aside class="w-80 border-l border-slate-200 bg-white/80 backdrop-blur-md hidden lg:flex flex-col h-screen p-6 flex-shrink-0 relative z-20 shadow-sm overflow-y-auto">
+    
+    <!-- Top Stats Row (Only Streak Left) -->
+    <div class="flex items-center justify-end mb-8">
+      
+      <!-- Streak Counter -->
+      <div class="flex items-center gap-2 text-orange-500 font-bold px-4 py-2 bg-orange-50 rounded-xl border border-orange-100 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.559-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
+        </svg>
+        <span>1 Day Streak</span>
+      </div>
+
+    </div>
+
+    <!-- Daily Challenge Widget -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-slate-800 text-lg">Daily Challenge</h3>
+        <a href="#" class="text-primary-600 font-bold text-sm uppercase hover:text-primary-700">View All</a>
+      </div>
+
+      <!-- Challenge Item -->
+      <div class="flex items-center gap-4">
+        <!-- Icon -->
+        <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        
+        <!-- Progress Info -->
+        <div class="flex-1">
+          <p class="text-slate-800 font-bold text-sm mb-2">Complete 1 Activity</p>
+          
+          <!-- Progress Bar -->
+          <div class="relative w-full h-4 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+            <div class="absolute top-0 left-0 h-full bg-accent-500 rounded-full w-full transition-all"></div>
+            <!-- Progress Text inside bar -->
+            <div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white tracking-wider">
+              1 / 1
+            </div>
+          </div>
+        </div>
+        
+        <!-- Chest/Reward Icon -->
+        <div class="w-8 h-8 flex-shrink-0 text-amber-500 ml-2 drop-shadow-sm">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 4h16v10H4zm8 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        </div>
+      </div>
+      
+    </div>
+
+  </aside>
 
 </body>
 </html>
