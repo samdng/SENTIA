@@ -192,8 +192,8 @@
 
         <!-- Node Info -->
         <div class="absolute top-24 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
-          <h3 class="font-bold text-slate-800 text-lg">Node 1: First Steps</h3>
-          <p class="text-sm text-slate-500 font-medium">Goal: Establish a daily habit</p>
+          <h3 id="node-title-1" class="font-bold text-slate-800 text-lg">Node 1: First Steps</h3>
+          <p id="node-desc-1" class="text-sm text-slate-500 font-medium">Goal: Establish a daily habit</p>
         </div>
       </div>
 
@@ -259,7 +259,7 @@
     <div class="flex items-center justify-end mb-8">
       
       <!-- Streak Counter -->
-      <div class="flex items-center gap-2 text-orange-500 font-bold px-4 py-2 bg-orange-50 rounded-xl border border-orange-100 shadow-sm">
+      <div id="streak-container" class="flex items-center gap-2 text-slate-400 font-bold px-4 py-2 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.559-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
         </svg>
@@ -290,10 +290,10 @@
           
           <!-- Progress Bar -->
           <div class="relative w-full h-4 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-            <div class="absolute top-0 left-0 h-full bg-accent-500 rounded-full w-full transition-all"></div>
+            <div id="challenge-fill" class="absolute top-0 left-0 h-full bg-accent-500 rounded-full w-0 transition-all"></div>
             <!-- Progress Text inside bar -->
-            <div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white tracking-wider">
-              1 / 1
+            <div id="challenge-text" class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-slate-500 tracking-wider">
+              0 / 1
             </div>
           </div>
         </div>
@@ -320,9 +320,36 @@
       }
 
       // Update UI elements based on user data
+      const streakContainer = document.getElementById('streak-container');
       const streakCounter = document.getElementById('streak-counter');
+      const streak = user.streak || 0;
       if (streakCounter) {
-        streakCounter.innerText = `${user.streak || 0} Day Streak`;
+        streakCounter.innerText = `${streak} Day Streak`;
+      }
+      if (streakContainer) {
+        if (streak > 0) {
+          streakContainer.className = "flex items-center gap-2 text-orange-500 font-bold px-4 py-2 bg-orange-50 rounded-xl border border-orange-100 shadow-sm";
+        } else {
+          streakContainer.className = "flex items-center gap-2 text-slate-400 font-bold px-4 py-2 bg-slate-50 rounded-xl border border-slate-200 shadow-sm";
+        }
+      }
+
+      // Update Daily Challenge based on activity
+      const challengeFill = document.getElementById('challenge-fill');
+      const challengeText = document.getElementById('challenge-text');
+      const today = new Date().toDateString();
+      const completedToday = user.lastStreakDate === today;
+      
+      if (challengeFill && challengeText) {
+        if (completedToday) {
+          challengeFill.style.width = '100%';
+          challengeText.innerText = '1 / 1';
+          challengeText.className = "absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white tracking-wider";
+        } else {
+          challengeFill.style.width = '0%';
+          challengeText.innerText = '0 / 1';
+          challengeText.className = "absolute inset-0 flex items-center justify-center text-[10px] font-bold text-slate-500 tracking-wider";
+        }
       }
 
       const lockIconSvg = `<path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />`;
