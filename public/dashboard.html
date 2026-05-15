@@ -9,6 +9,7 @@
   
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -18,14 +19,14 @@
               200: '#bfdbfe',
               300: '#93c5fd',
               400: '#60a5fa',
-              500: '#3b82f6', // Brand color
+              500: '#3b82f6',
               600: '#2563eb',
               700: '#1d4ed8',
               800: '#1e40af',
               900: '#1e3a8a',
             },
             accent: {
-              500: '#10b981', // Emerald
+              500: '#10b981',
               600: '#059669',
             }
           },
@@ -44,40 +45,27 @@
   <style type="text/tailwindcss">
     @layer utilities {
       .glassmorphism {
-        @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+        @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-xl;
       }
     }
     body {
       font-family: 'Inter', sans-serif;
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-thumb { background: #475569; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
-    /* Node animations */
-    .node-bounce {
-      animation: bounceCentered 2s infinite;
-    }
+    .node-bounce { animation: bounceCentered 2s infinite; }
     @keyframes bounceCentered {
       0%, 100% { transform: translate(-50%, 0); }
       50% { transform: translate(-50%, -8px); }
     }
     
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
+    .animate-float { animation: float 6s ease-in-out infinite; }
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
@@ -85,53 +73,50 @@
   </style>
   <script src="db.js"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex overflow-hidden relative">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex overflow-hidden relative transition-colors duration-300">
 
-  <!-- Background Decorations (Matching Index) -->
+  <!-- Background Decorations -->
+  <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20">
+    <div class="absolute inset-0 bg-[url('images/background.png')] bg-cover bg-center blur-md scale-110 opacity-40 dark:opacity-20 transition-opacity"></div>
+  </div>
   <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
     <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-primary-200/50 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 0s;"></div>
     <div class="absolute top-[20%] -right-[10%] w-[35%] h-[35%] rounded-full bg-accent-500/20 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
     <div class="absolute -bottom-[10%] left-[20%] w-[50%] h-[50%] rounded-full bg-primary-300/30 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
   </div>
 
-  <!-- LEFT SIDEBAR: Navigation -->
-  <aside class="w-64 border-r border-slate-200 bg-white/80 backdrop-blur-md hidden md:flex flex-col h-screen p-4 flex-shrink-0 relative z-20 shadow-sm">
+  <!-- LEFT SIDEBAR -->
+  <aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md hidden md:flex flex-col h-screen p-4 flex-shrink-0 relative z-20 shadow-sm transition-colors">
     
-    <!-- Logo -->
     <div class="px-4 py-6 mb-4">
       <h1 class="text-3xl font-extrabold tracking-tight">
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">SENTIA</span>
       </h1>
     </div>
 
-    <!-- Navigation Links -->
     <nav class="flex-1 space-y-2">
-      <!-- Activity (Active) -->
-      <a href="#" class="flex items-center gap-4 px-4 py-3 bg-primary-50 border border-primary-200 text-primary-700 rounded-xl font-bold transition-colors shadow-sm">
+      <a href="dashboard.html" class="flex items-center gap-4 px-4 py-3 bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800/50 text-primary-700 dark:text-primary-400 rounded-xl font-bold transition-colors shadow-sm fade-link">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
           <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
         </svg>
         Activity
       </a>
 
-      <!-- Account -->
-      <a href="#" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-100 rounded-xl font-semibold transition-colors">
+      <a href="account.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-semibold transition-colors fade-link">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
         </svg>
         Account
       </a>
 
-      <!-- Settings -->
-      <a href="#" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-100 rounded-xl font-semibold transition-colors">
+      <a href="settings.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-semibold transition-colors fade-link">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
         </svg>
         Settings
       </a>
       
-      <!-- Logout -->
-      <a href="index.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-red-600 rounded-xl font-semibold transition-colors mt-auto">
+      <a href="index.html" onclick="DB.logout()" class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-red-600 dark:hover:text-red-500 rounded-xl font-semibold transition-colors mt-auto fade-link">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400 group-hover:text-red-500" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
         </svg>
@@ -141,10 +126,10 @@
   </aside>
 
   <!-- CENTER: Activity Path -->
-  <main class="flex-1 overflow-y-auto relative h-screen">
+  <main class="flex-1 overflow-y-auto relative h-screen transition-colors">
     
-    <!-- Unit Header -->
-    <div class="sticky top-0 z-30 bg-primary-600 p-4 mx-4 mt-6 rounded-2xl flex items-center justify-between shadow-lg shadow-primary-600/30">
+    <!-- Header with Dark Mode Toggle -->
+    <div class="sticky top-0 z-30 bg-primary-600 dark:bg-primary-800 p-4 mx-4 mt-6 rounded-2xl flex items-center justify-between shadow-lg shadow-primary-600/30">
       <div>
         <div class="text-primary-100 font-bold text-xs tracking-widest flex items-center gap-2 uppercase mb-1">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -154,97 +139,84 @@
         </div>
         <h2 class="text-white text-2xl font-bold">Foundations of Mindfulness</h2>
       </div>
-      <button class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-2 backdrop-blur-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
-        </svg>
-        Guide
-      </button>
+      <div class="flex items-center gap-4">
+        <button id="theme-toggle" class="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors">
+          <!-- Sun Icon (hidden in dark mode by default) -->
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          <!-- Moon Icon (hidden in light mode by default) -->
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        </button>
+      </div>
     </div>
 
     <!-- The Path Container -->
     <div class="relative w-full max-w-lg mx-auto py-20 flex flex-col items-center">
       
-      <!-- SVG Background Path Line -->
       <svg class="absolute top-0 left-1/2 -translate-x-1/2 w-[512px] h-[832px] -z-10" viewBox="0 0 512 832" fill="none">
         <path d="M 256 120 C 256 208, 316 208, 316 296 C 316 384, 216 384, 216 472 C 216 560, 296 560, 296 648" 
-              stroke="#e2e8f0" stroke-width="15" stroke-linecap="round" />
+              stroke="currentColor" stroke-width="15" stroke-linecap="round" class="text-slate-200 dark:text-slate-700 transition-colors" />
       </svg>
 
       <!-- Nodes -->
       
-      <!-- Node 1: First Steps (Completed / Active) -->
-      <div class="relative mb-24" style="transform: translateX(0px);" id="node-wrapper-1">
-        <!-- Tooltip -->
-        <div id="node-tooltip-1" class="absolute -top-16 left-1/2 bg-white text-primary-600 font-bold px-4 py-2 rounded-xl text-sm tracking-wide shadow-xl shadow-primary-500/10 border border-slate-100 whitespace-nowrap z-20 node-bounce hidden">
-          START
-          <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white"></div>
-        </div>
-        
-        <!-- Active Node Ring -->
+      <!-- Node 1 -->
+      <div class="relative mb-24 group" style="transform: translateX(0px);" id="node-wrapper-1">
+        <div id="node-tooltip-1" class="absolute -top-16 left-1/2 bg-white text-primary-600 font-bold px-4 py-2 rounded-xl text-sm tracking-wide shadow-xl shadow-primary-500/10 border border-slate-100 whitespace-nowrap z-20 node-bounce hidden">START<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white"></div></div>
         <div id="node-ring-1" class="absolute inset-0 border-[6px] border-primary-200 rounded-full scale-[1.25] rotate-45 border-t-primary-500 transition-colors duration-1000 opacity-0 hidden"></div>
-        
-        <a id="node-btn-1" class="relative z-10 w-20 h-20 bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed block transition-all mx-auto duration-500">
-          <svg id="node-icon-1" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 mt-4 mx-auto transition-all duration-500" viewBox="0 0 20 20" fill="currentColor">
+        <a id="node-btn-1" class="relative z-10 w-20 h-20 bg-slate-200 dark:bg-slate-700 rounded-full shadow-[0_6px_0_#cbd5e1] dark:shadow-[0_6px_0_#334155] border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center cursor-not-allowed block transition-all mx-auto duration-500">
+          <svg id="node-icon-1" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 dark:text-slate-500 transition-all duration-500" viewBox="0 0 20 20" fill="currentColor">
              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
           </svg>
         </a>
-
-        <!-- Node Info -->
-        <div class="absolute top-24 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
-          <h3 id="node-title-1" class="font-bold text-slate-800 text-lg">Node 1: First Steps</h3>
-          <p id="node-desc-1" class="text-sm text-slate-500 font-medium">Goal: Establish a daily habit</p>
+        <!-- Node Info Hover Dialog -->
+        <div class="absolute top-1/2 -translate-y-1/2 left-full ml-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 w-48 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-500 delay-500 z-30">
+          <h3 id="node-title-1" class="font-bold text-slate-800 dark:text-slate-200 text-sm">Node 1: First Steps</h3>
+          <p id="node-desc-1" class="text-xs text-slate-500 dark:text-slate-400 font-medium">Goal: Establish a daily habit</p>
         </div>
       </div>
 
-      <!-- Node 2: Recognizing Emotions (Locked) -->
-      <div class="relative mb-24" style="transform: translateX(60px);" id="node-wrapper-2">
+      <!-- Node 2 -->
+      <div class="relative mb-24 group" style="transform: translateX(60px);" id="node-wrapper-2">
         <div id="node-tooltip-2" class="absolute -top-16 left-1/2 bg-white text-primary-600 font-bold px-4 py-2 rounded-xl text-sm tracking-wide shadow-xl shadow-primary-500/10 border border-slate-100 whitespace-nowrap z-20 node-bounce hidden">START<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white"></div></div>
         <div id="node-ring-2" class="absolute inset-0 border-[6px] border-primary-200 rounded-full scale-[1.25] rotate-45 border-t-primary-500 transition-colors duration-1000 opacity-0 hidden"></div>
-        <a id="node-btn-2" class="relative z-10 w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed block transition-all mx-auto duration-500">
-          <svg id="node-icon-2" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 mt-4 mx-auto transition-all duration-500" viewBox="0 0 20 20" fill="currentColor">
+        <a id="node-btn-2" class="relative z-10 w-[72px] h-[72px] bg-slate-200 dark:bg-slate-700 rounded-full shadow-[0_6px_0_#cbd5e1] dark:shadow-[0_6px_0_#334155] border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center cursor-not-allowed block transition-all mx-auto duration-500">
+          <svg id="node-icon-2" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 dark:text-slate-500 transition-all duration-500" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
           </svg>
         </a>
-
-        <!-- Node Info -->
-        <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
-          <h3 id="node-title-2" class="font-bold text-slate-400 text-lg">Node 2: Emotions</h3>
-          <p id="node-desc-2" class="text-sm text-slate-400 font-medium opacity-70">Goal: Identify emotions</p>
+        <div class="absolute top-1/2 -translate-y-1/2 left-full ml-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 w-48 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-500 delay-500 z-30">
+          <h3 id="node-title-2" class="font-bold text-slate-800 dark:text-slate-200 text-sm">Node 2: Emotions</h3>
+          <p id="node-desc-2" class="text-xs text-slate-500 dark:text-slate-400 font-medium">Goal: Identify emotions</p>
         </div>
       </div>
 
-      <!-- Node 3: Stress Management (Locked) -->
-      <div class="relative mb-24" style="transform: translateX(-40px);" id="node-wrapper-3">
+      <!-- Node 3 -->
+      <div class="relative mb-24 group" style="transform: translateX(-40px);" id="node-wrapper-3">
         <div id="node-tooltip-3" class="absolute -top-16 left-1/2 bg-white text-primary-600 font-bold px-4 py-2 rounded-xl text-sm tracking-wide shadow-xl shadow-primary-500/10 border border-slate-100 whitespace-nowrap z-20 node-bounce hidden">START<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white"></div></div>
         <div id="node-ring-3" class="absolute inset-0 border-[6px] border-primary-200 rounded-full scale-[1.25] rotate-45 border-t-primary-500 transition-colors duration-1000 opacity-0 hidden"></div>
-        <a id="node-btn-3" class="relative z-10 w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed block transition-all mx-auto duration-500">
-          <svg id="node-icon-3" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 mt-4 mx-auto transition-all duration-500" viewBox="0 0 20 20" fill="currentColor">
+        <a id="node-btn-3" class="relative z-10 w-[72px] h-[72px] bg-slate-200 dark:bg-slate-700 rounded-full shadow-[0_6px_0_#cbd5e1] dark:shadow-[0_6px_0_#334155] border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center cursor-not-allowed block transition-all mx-auto duration-500">
+          <svg id="node-icon-3" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 dark:text-slate-500 transition-all duration-500" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
           </svg>
         </a>
-
-        <!-- Node Info -->
-        <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
-          <h3 id="node-title-3" class="font-bold text-slate-400 text-lg">Node 3: Stress</h3>
-          <p id="node-desc-3" class="text-sm text-slate-400 font-medium opacity-70">Goal: Reduce tension</p>
+        <div class="absolute top-1/2 -translate-y-1/2 right-full mr-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 w-48 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-500 delay-500 z-30">
+          <h3 id="node-title-3" class="font-bold text-slate-800 dark:text-slate-200 text-sm">Node 3: Stress</h3>
+          <p id="node-desc-3" class="text-xs text-slate-500 dark:text-slate-400 font-medium">Goal: Reduce tension</p>
         </div>
       </div>
 
-      <!-- Node 4: Positive Thoughts (Locked) -->
-      <div class="relative mb-16" style="transform: translateX(40px);" id="node-wrapper-4">
+      <!-- Node 4 -->
+      <div class="relative mb-16 group" style="transform: translateX(40px);" id="node-wrapper-4">
         <div id="node-tooltip-4" class="absolute -top-16 left-1/2 bg-white text-primary-600 font-bold px-4 py-2 rounded-xl text-sm tracking-wide shadow-xl shadow-primary-500/10 border border-slate-100 whitespace-nowrap z-20 node-bounce hidden">START<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white"></div></div>
         <div id="node-ring-4" class="absolute inset-0 border-[6px] border-primary-200 rounded-full scale-[1.25] rotate-45 border-t-primary-500 transition-colors duration-1000 opacity-0 hidden"></div>
-        <a id="node-btn-4" class="relative z-10 w-[72px] h-[72px] bg-slate-200 rounded-full shadow-[0_6px_0_#cbd5e1] border-2 border-slate-300 flex items-center justify-center cursor-not-allowed block transition-all mx-auto duration-500">
-          <svg id="node-icon-4" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 mt-4 mx-auto transition-all duration-500" viewBox="0 0 20 20" fill="currentColor">
+        <a id="node-btn-4" class="relative z-10 w-[72px] h-[72px] bg-slate-200 dark:bg-slate-700 rounded-full shadow-[0_6px_0_#cbd5e1] dark:shadow-[0_6px_0_#334155] border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center cursor-not-allowed block transition-all mx-auto duration-500">
+          <svg id="node-icon-4" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-400 dark:text-slate-500 transition-all duration-500" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
           </svg>
         </a>
-
-        <!-- Node Info -->
-        <div class="absolute top-20 left-1/2 -translate-x-1/2 text-center w-64 mt-4">
-          <h3 id="node-title-4" class="font-bold text-slate-400 text-lg">Node 4: Positivity</h3>
-          <p id="node-desc-4" class="text-sm text-slate-400 font-medium opacity-70">Goal: Change mindset</p>
+        <div class="absolute top-1/2 -translate-y-1/2 left-full ml-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 w-48 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-500 delay-500 z-30">
+          <h3 id="node-title-4" class="font-bold text-slate-800 dark:text-slate-200 text-sm">Node 4: Positivity</h3>
+          <p id="node-desc-4" class="text-xs text-slate-500 dark:text-slate-400 font-medium">Goal: Change mindset</p>
         </div>
       </div>
 
@@ -252,88 +224,104 @@
 
   </main>
 
-  <!-- RIGHT SIDEBAR: Stats & Challenges -->
-  <aside class="w-80 border-l border-slate-200 bg-white/80 backdrop-blur-md hidden lg:flex flex-col h-screen p-6 flex-shrink-0 relative z-20 shadow-sm overflow-y-auto">
+  <!-- RIGHT SIDEBAR -->
+  <aside class="w-80 border-l border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md hidden lg:flex flex-col h-screen p-6 flex-shrink-0 relative z-20 shadow-sm overflow-y-auto transition-colors">
     
-    <!-- Top Stats Row (Only Streak Left) -->
     <div class="flex items-center justify-end mb-8">
-      
-      <!-- Streak Counter -->
-      <div id="streak-container" class="flex items-center gap-2 text-slate-400 font-bold px-4 py-2 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
+      <div id="streak-container" class="flex items-center gap-2 text-slate-400 font-bold px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.559-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
         </svg>
         <span id="streak-counter">0 Day Streak</span>
       </div>
-
     </div>
 
-    <!-- Daily Challenge Widget -->
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition-shadow">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 hover:shadow-md transition-shadow">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-bold text-slate-800 text-lg">Daily Challenge</h3>
-        <a href="#" class="text-primary-600 font-bold text-sm uppercase hover:text-primary-700">View All</a>
+        <h3 class="font-bold text-slate-800 dark:text-slate-100 text-lg">Daily Challenge</h3>
+        <a href="#" class="text-primary-600 dark:text-primary-400 font-bold text-sm uppercase hover:text-primary-700">View All</a>
       </div>
 
-      <!-- Challenge Item -->
       <div class="flex items-center gap-4">
-        <!-- Icon -->
-        <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary-100">
+        <div class="w-12 h-12 bg-primary-50 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary-100 dark:border-primary-800/50">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-500" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd" />
           </svg>
         </div>
         
-        <!-- Progress Info -->
         <div class="flex-1">
-          <p class="text-slate-800 font-bold text-sm mb-2">Complete 1 Activity</p>
-          
-          <!-- Progress Bar -->
-          <div class="relative w-full h-4 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+          <p class="text-slate-800 dark:text-slate-200 font-bold text-sm mb-2">Complete 1 Activity</p>
+          <div class="relative w-full h-4 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden shadow-inner">
             <div id="challenge-fill" class="absolute top-0 left-0 h-full bg-accent-500 rounded-full w-0 transition-all"></div>
-            <!-- Progress Text inside bar -->
-            <div id="challenge-text" class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-slate-500 tracking-wider">
+            <div id="challenge-text" class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider">
               0 / 1
             </div>
           </div>
         </div>
         
-        <!-- Chest/Reward Icon -->
         <div class="w-8 h-8 flex-shrink-0 text-amber-500 ml-2 drop-shadow-sm">
           <svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 4h16v10H4zm8 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
         </div>
       </div>
-      
     </div>
 
   </aside>
 
   <script>
+    // Dark Mode Toggle Logic
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        lightIcon.classList.remove('hidden');
+    } else {
+        document.documentElement.classList.remove('dark');
+        darkIcon.classList.remove('hidden');
+    }
+
+    themeToggleBtn.addEventListener('click', function() {
+        darkIcon.classList.toggle('hidden');
+        lightIcon.classList.toggle('hidden');
+        if (localStorage.getItem('color-theme')) {
+            if (localStorage.getItem('color-theme') === 'light') {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            }
+        } else {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
+      document.body.style.opacity = 1;
+
       const user = DB.getCurrentUser();
-      
-      // Enforce login
       if (!user) {
         window.location.href = 'login.html';
         return;
       }
 
-      // Update UI elements based on user data
       const streakContainer = document.getElementById('streak-container');
       const streakCounter = document.getElementById('streak-counter');
       const streak = user.streak || 0;
       if (streakCounter) {
         streakCounter.innerText = `${streak} Day Streak`;
       }
-      if (streakContainer) {
-        if (streak > 0) {
-          streakContainer.className = "flex items-center gap-2 text-orange-500 font-bold px-4 py-2 bg-orange-50 rounded-xl border border-orange-100 shadow-sm";
-        } else {
-          streakContainer.className = "flex items-center gap-2 text-slate-400 font-bold px-4 py-2 bg-slate-50 rounded-xl border border-slate-200 shadow-sm";
-        }
+      if (streakContainer && streak > 0) {
+        streakContainer.className = "flex items-center gap-2 text-orange-500 font-bold px-4 py-2 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-100 dark:border-orange-800/50 shadow-sm transition-colors";
       }
 
-      // Update Daily Challenge based on activity
       const challengeFill = document.getElementById('challenge-fill');
       const challengeText = document.getElementById('challenge-text');
       const today = new Date().toDateString();
@@ -347,7 +335,7 @@
         } else {
           challengeFill.style.width = '0%';
           challengeText.innerText = '0 / 1';
-          challengeText.className = "absolute inset-0 flex items-center justify-center text-[10px] font-bold text-slate-500 tracking-wider";
+          challengeText.className = "absolute inset-0 flex items-center justify-center text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider";
         }
       }
 
@@ -363,49 +351,46 @@
         const ring = document.getElementById(`node-ring-${nodeId}`);
         const tooltip = document.getElementById(`node-tooltip-${nodeId}`);
 
-        // Reset classes and attributes
-        btn.className = "relative z-10 block transition-all mx-auto duration-500 flex items-center justify-center rounded-full ";
-        icon.className = "mt-4 mx-auto transition-all duration-500 ";
+        btn.className = "relative z-10 block transition-all mx-auto duration-500 flex items-center justify-center rounded-full fade-link ";
+        icon.className = "transition-all duration-500 ";
         icon.setAttribute('fill', 'currentColor');
         icon.removeAttribute('stroke');
-        title.className = "font-bold text-lg ";
-        desc.className = "text-sm font-medium ";
+        title.className = "font-bold text-sm ";
+        desc.className = "text-xs font-medium ";
         ring.className = "absolute inset-0 border-[6px] rounded-full scale-[1.25] rotate-45 transition-colors duration-1000 hidden opacity-0 ";
         tooltip.classList.add('hidden');
 
         if (state === 'locked') {
           btn.href = "#";
-          btn.classList.add('w-[72px]', 'h-[72px]', 'bg-slate-200', 'shadow-[0_6px_0_#cbd5e1]', 'border-2', 'border-slate-300', 'cursor-not-allowed');
-          icon.classList.add('h-8', 'w-8', 'text-slate-400');
+          btn.classList.add('w-[72px]', 'h-[72px]', 'bg-slate-200', 'dark:bg-slate-700', 'shadow-[0_6px_0_#cbd5e1]', 'dark:shadow-[0_6px_0_#334155]', 'border-2', 'border-slate-300', 'dark:border-slate-600', 'cursor-not-allowed');
+          icon.classList.add('h-8', 'w-8', 'text-slate-400', 'dark:text-slate-500');
           icon.innerHTML = lockIconSvg;
-          title.classList.add('text-slate-400');
-          desc.classList.add('text-slate-400', 'opacity-70');
+          title.classList.add('text-slate-400', 'dark:text-slate-500');
+          desc.classList.add('text-slate-400', 'dark:text-slate-500', 'opacity-70');
         } 
         else if (state === 'active') {
           btn.href = `activity.html?node=${nodeId}`;
           btn.classList.add('w-20', 'h-20', 'bg-primary-500', 'shadow-[0_6px_0_#2563eb]', 'hover:shadow-[0_2px_0_#2563eb]', 'hover:translate-y-1', 'cursor-pointer');
-          icon.classList.add('h-10', 'w-10', 'text-white', 'mt-5');
+          icon.classList.add('h-10', 'w-10', 'text-white');
           icon.innerHTML = starIconSvg;
-          title.classList.add('text-slate-800');
-          desc.classList.add('text-slate-500');
+          title.classList.add('text-slate-800', 'dark:text-slate-200');
+          desc.classList.add('text-slate-500', 'dark:text-slate-400');
           ring.classList.remove('hidden');
-          ring.classList.add('border-primary-200', 'border-t-primary-500', 'opacity-100');
+          ring.classList.add('border-primary-200', 'dark:border-primary-800', 'border-t-primary-500', 'opacity-100');
           tooltip.classList.remove('hidden');
         } 
         else if (state === 'completed') {
-          btn.href = "#"; // Completed nodes aren't clickable in this mockup
-          btn.classList.add('w-[72px]', 'h-[72px]', 'bg-slate-200', 'shadow-[0_6px_0_#cbd5e1]', 'border-2', 'border-slate-300', 'cursor-default');
-          icon.classList.add('h-8', 'w-8', 'text-slate-400');
-          // Important: remove fill-rule="evenodd" when switching to check which uses stroke
+          btn.href = "#";
+          btn.classList.add('w-[72px]', 'h-[72px]', 'bg-slate-200', 'dark:bg-slate-700', 'shadow-[0_6px_0_#cbd5e1]', 'dark:shadow-[0_6px_0_#334155]', 'border-2', 'border-slate-300', 'dark:border-slate-600', 'cursor-default');
+          icon.classList.add('h-8', 'w-8', 'text-slate-500', 'dark:text-slate-400');
           icon.setAttribute('fill', 'none'); 
           icon.setAttribute('stroke', 'currentColor');
           icon.innerHTML = checkIconSvg;
-          title.classList.add('text-slate-800');
-          desc.classList.add('text-slate-500');
+          title.classList.add('text-slate-800', 'dark:text-slate-200');
+          desc.classList.add('text-slate-500', 'dark:text-slate-400');
         }
       }
 
-      // Initial Render
       for (let i = 1; i <= 4; i++) {
         if (user.completedNodes.includes(i)) {
           renderState(i, 'completed');
@@ -416,38 +401,44 @@
         }
       }
 
-      // Check for completion animation
       const urlParams = new URLSearchParams(window.location.search);
       const justCompleted = parseInt(urlParams.get('justCompleted'));
 
       if (justCompleted && user.completedNodes.includes(justCompleted)) {
-        // Temporarily render it back as active to animate out
         renderState(justCompleted, 'active');
         const nextNode = justCompleted + 1;
         if (nextNode <= 4) renderState(nextNode, 'locked');
 
         const ring = document.getElementById(`node-ring-${justCompleted}`);
-        
-        // 1. Fill the ring
         setTimeout(() => {
-          ring.classList.remove('border-primary-200', 'border-t-primary-500');
+          ring.classList.remove('border-primary-200', 'dark:border-primary-800', 'border-t-primary-500');
           ring.classList.add('border-primary-500');
         }, 500);
 
-        // 2. Fade out ring, turn to completed state, pop next node
         setTimeout(() => {
           ring.classList.replace('opacity-100', 'opacity-0');
-          
           setTimeout(() => {
             renderState(justCompleted, 'completed');
             if (nextNode <= 4) renderState(nextNode, 'active');
-            
-            // Remove URL param so it doesn't replay on refresh
             window.history.replaceState({}, document.title, window.location.pathname);
-          }, 500); // Wait for ring fade out
-        }, 1500); // Wait for ring fill
+          }, 500);
+        }, 1500);
       }
 
+      // Transition handling
+      const fadeLinks = document.querySelectorAll('.fade-link');
+      fadeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (this.href.endsWith('#') || this.classList.contains('cursor-not-allowed') || this.classList.contains('cursor-default')) return;
+          e.preventDefault();
+          const target = this.href;
+          document.body.style.transition = 'opacity 0.3s ease-out';
+          document.body.style.opacity = 0;
+          setTimeout(() => {
+            window.location.href = target;
+          }, 300);
+        });
+      });
     });
   </script>
 </body>

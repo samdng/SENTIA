@@ -82,7 +82,10 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased relative overflow-x-hidden">
   
   <!-- Background Decorations -->
-  <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+  <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20">
+    <div class="absolute inset-0 bg-[url('images/background.png')] bg-cover bg-center blur-md scale-110 opacity-40"></div>
+  </div>
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
     <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-primary-200/50 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 0s;"></div>
     <div class="absolute top-[20%] -right-[10%] w-[35%] h-[35%] rounded-full bg-accent-500/20 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
     <div class="absolute -bottom-[10%] left-[20%] w-[50%] h-[50%] rounded-full bg-primary-300/30 mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
@@ -93,10 +96,8 @@
     <div class="max-w-4xl w-full text-center">
       
       <!-- Logo/Brand -->
-      <div class="mb-6 animate-slide-up">
-        <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-2">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">SENTIA</span>
-        </h1>
+      <div class="mb-6 animate-slide-up flex flex-col items-center">
+        <img src="images/logo.png" alt="SENTIA Logo" class="w-48 h-auto mb-4 rounded-xl shadow-lg mix-blend-multiply">
         <p class="text-lg md:text-xl font-medium text-slate-500 tracking-wide uppercase">Your Mind, Nurtured Daily</p>
       </div>
 
@@ -107,10 +108,10 @@
 
       <!-- Action Buttons -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
-        <a href="login.html" class="w-full sm:w-auto px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-primary-500/30 transition-all duration-300 transform hover:-translate-y-1 text-lg">
+        <a href="signup.html" class="w-full sm:w-auto px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-primary-500/30 transition-all duration-300 transform hover:-translate-y-1 text-lg fade-link">
           Start Now
         </a>
-        <a href="login.html" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 font-semibold rounded-2xl shadow-md hover:shadow-lg border border-slate-200 hover:border-primary-200 hover:bg-primary-50 transition-all duration-300 transform hover:-translate-y-1 text-lg">
+        <a href="login.html" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 font-semibold rounded-2xl shadow-md hover:shadow-lg border border-slate-200 hover:border-primary-200 hover:bg-primary-50 transition-all duration-300 transform hover:-translate-y-1 text-lg fade-link">
           I already have an account
         </a>
       </div>
@@ -119,6 +120,31 @@
       <p class="mt-8 text-sm text-slate-500 animate-slide-up" style="animation-delay: 0.3s;">
         Join thousands of others improving their mental health every day. Free for 14 days.
       </p>
+
+      <!-- Description Panels -->
+      <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div class="glassmorphism p-6 rounded-2xl animate-slide-up" style="animation-delay: 0.4s;">
+          <div class="w-12 h-12 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">For Everyone</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">Designed for young adults, seniors, and caregivers of people with depression, anxiety, or cognitive decline.</p>
+        </div>
+        <div class="glassmorphism p-6 rounded-2xl animate-slide-up" style="animation-delay: 0.5s;">
+          <div class="w-12 h-12 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Daily Habits</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">Functions like language-learning apps, offering daily generic exercises that foster habits of mental wellness and emotional self-management.</p>
+        </div>
+        <div class="glassmorphism p-6 rounded-2xl animate-slide-up" style="animation-delay: 0.6s;">
+          <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Progressive Connection</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">A subscription model that facilitates mood improvement and allows progressive connection with mental health professionals.</p>
+        </div>
+      </div>
 
     </div>
   </main>
@@ -170,5 +196,24 @@
     </div>
   </footer>
 
+  <script>
+    // Page Transition Logic
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.style.opacity = 1;
+    });
+
+    const fadeLinks = document.querySelectorAll('.fade-link');
+    fadeLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = this.href;
+        document.body.style.transition = 'opacity 0.3s ease-out';
+        document.body.style.opacity = 0;
+        setTimeout(() => {
+          window.location.href = target;
+        }, 300);
+      });
+    });
+  </script>
 </body>
 </html>

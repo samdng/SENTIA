@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | SENTIA</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { primary: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb' }, accent: { 500: '#10b981' } } } }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style type="text/tailwindcss">
+    @layer utilities { .glassmorphism { @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-xl; } }
+    body { font-family: 'Inter', sans-serif; }
+    /* Toggle Switch */
+    .toggle-checkbox:checked { right: 0; border-color: #3b82f6; }
+    .toggle-checkbox:checked + .toggle-label { background-color: #3b82f6; }
+  </style>
+  <script src="db.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex overflow-hidden relative transition-colors duration-300">
+
+  <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20">
+    <div class="absolute inset-0 bg-[url('images/background.png')] bg-cover bg-center blur-md scale-110 opacity-40 dark:opacity-20 transition-opacity"></div>
+  </div>
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md hidden md:flex flex-col h-screen p-4 flex-shrink-0 relative z-20 shadow-sm transition-colors">
+    <div class="px-4 py-6 mb-4">
+      <h1 class="text-3xl font-extrabold tracking-tight">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">SENTIA</span>
+      </h1>
+    </div>
+    <nav class="flex-1 space-y-2">
+      <a href="dashboard.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-semibold transition-colors fade-link">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+        </svg>
+        Activity
+      </a>
+      <a href="account.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-semibold transition-colors fade-link">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+        </svg>
+        Account
+      </a>
+      <a href="settings.html" class="flex items-center gap-4 px-4 py-3 bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800/50 text-primary-700 dark:text-primary-400 rounded-xl font-bold transition-colors shadow-sm fade-link">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+        </svg>
+        Settings
+      </a>
+      <a href="index.html" onclick="DB.logout()" class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-red-600 dark:hover:text-red-500 rounded-xl font-semibold transition-colors mt-auto fade-link">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400 group-hover:text-red-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+        </svg>
+        Logout
+      </a>
+    </nav>
+  </aside>
+
+  <!-- CENTER: Main Content -->
+  <main class="flex-1 overflow-y-auto relative h-screen p-8">
+    <div class="max-w-2xl mx-auto mt-10">
+      <div class="glassmorphism rounded-3xl p-8 shadow-xl">
+        <h2 class="text-3xl font-bold mb-8">Settings</h2>
+        
+        <div class="space-y-8">
+          
+          <!-- Appearance -->
+          <div>
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Appearance</h3>
+            <div class="flex items-center justify-between py-3 border-b border-slate-200 dark:border-slate-700">
+              <div>
+                <p class="font-medium">Dark Mode</p>
+                <p class="text-sm text-slate-500">Toggle dark theme for the application</p>
+              </div>
+              <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                <input type="checkbox" name="toggle" id="dark-mode-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-slate-300 dark:border-primary-500"/>
+                <label for="dark-mode-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-300 dark:bg-primary-500 cursor-pointer"></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications (Mockup) -->
+          <div>
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Notifications</h3>
+            <div class="flex items-center justify-between py-3 border-b border-slate-200 dark:border-slate-700">
+              <div>
+                <p class="font-medium">Push Notifications</p>
+                <p class="text-sm text-slate-500">Receive daily activity reminders</p>
+              </div>
+              <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                <input type="checkbox" checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-300 cursor-pointer"></label>
+              </div>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-slate-200 dark:border-slate-700">
+              <div>
+                <p class="font-medium">Email Updates</p>
+                <p class="text-sm text-slate-500">Weekly progress reports</p>
+              </div>
+              <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                <input type="checkbox" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-300 cursor-pointer"></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Privacy (Mockup) -->
+          <div>
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Privacy</h3>
+            <div class="flex items-center justify-between py-3 border-b border-slate-200 dark:border-slate-700">
+              <div>
+                <p class="font-medium">Private Profile</p>
+                <p class="text-sm text-slate-500">Hide activity from community</p>
+              </div>
+              <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                <input type="checkbox" checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-300 cursor-pointer"></label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const isDark = localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('dark-mode-toggle').checked = true;
+    }
+
+    document.getElementById('dark-mode-toggle').addEventListener('change', function() {
+        if (this.checked) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.style.opacity = 1;
+      const user = DB.getCurrentUser();
+      if (!user) { window.location.href = 'login.html'; return; }
+
+      const fadeLinks = document.querySelectorAll('.fade-link');
+      fadeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (this.href.endsWith('#')) return;
+          e.preventDefault();
+          const target = this.href;
+          document.body.style.transition = 'opacity 0.3s ease-out';
+          document.body.style.opacity = 0;
+          setTimeout(() => { window.location.href = target; }, 300);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

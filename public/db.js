@@ -9,12 +9,16 @@ const initialDB = {
   users: [
     {
       id: 1,
+      name: 'Test User',
+      country: 'USA',
+      phone: '1234567890',
       email: 'test@example.com',
       password: 'password',
       currentNode: 1,
       completedNodes: [],
       streak: 0,
-      lastStreakDate: null
+      lastStreakDate: null,
+      currentMood: null
     }
   ],
   session: null // Will store the user ID if logged in
@@ -37,6 +41,63 @@ function saveDB(db) {
 }
 
 const DB = {
+  signup: (userData) => {
+    const db = getDB();
+    if (db.users.find(u => u.email === userData.email)) {
+      return false; // Email already exists
+    }
+    const newUser = {
+      id: Date.now(),
+      name: userData.name,
+      country: userData.country,
+      phone: userData.phone,
+      email: userData.email,
+      password: userData.password,
+      currentNode: 1,
+      completedNodes: [],
+      streak: 0,
+      lastStreakDate: null,
+      currentMood: null
+    };
+    db.users.push(newUser);
+    db.session = newUser.id;
+    saveDB(db);
+    return true;
+  },
+
+  updateUser: (userData) => {
+    const db = getDB();
+    if (!db.session) return false;
+    const userIndex = db.users.findIndex(u => u.id === db.session);
+    if (userIndex !== -1) {
+      db.users[userIndex] = { ...db.users[userIndex], ...userData };
+      saveDB(db);
+      return true;
+    }
+    return false;
+  },
+
+  deleteUser: () => {
+    const db = getDB();
+    if (!db.session) return false;
+    db.users = db.users.filter(u => u.id !== db.session);
+    db.session = null;
+    saveDB(db);
+    return true;
+  },
+
+  setCurrentMood: (mood) => {
+    const db = getDB();
+    if (!db.session) return false;
+    const userIndex = db.users.findIndex(u => u.id === db.session);
+    if (userIndex !== -1) {
+      db.users[userIndex].currentMood = mood;
+      saveDB(db);
+      return true;
+    }
+    return false;
+  },
+
   login: (email, password) => {
     const db = getDB();
     const user = db.users.find(u => u.email === email && u.password === password);
